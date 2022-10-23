@@ -1,0 +1,93 @@
+C Program to Find First Non Repeating Character of a String:
+
+#include <stdio.h>
+#include <string.h>
+int main(void) { 
+ char str[100] = "cprogrammingcode";
+ int len  = strlen(str);
+ int flag;
+ for(int i = 0; i < len; i++) {
+     flag = 0; 
+     for(int j = 0; j < len; j++) {
+        if((str[i] == str[j]) && (i != j)) {
+             flag = 1;
+             break;
+        }
+     }
+      if (flag == 0) {
+          printf("First non-repeating character is %c",str[i]);
+          break;
+      }
+ }
+ 
+ if (flag == 1) {
+     printf("Didn't find any non-repeating character");
+ }
+  return 0;
+}
+
+
+Reverse a linked list : 
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+struct Node {
+    int data;
+    struct Node* next;
+};
+ 
+static void reverse(struct Node** head_ref)
+{
+    struct Node* prev = NULL;
+    struct Node* current = *head_ref;
+    struct Node* next = NULL;
+    while (current != NULL) {
+        // Store next
+        next = current->next;
+ 
+        // Reverse current node's pointer
+        current->next = prev;
+ 
+        // Move pointers one position ahead.
+        prev = current;
+        current = next;
+    }
+    *head_ref = prev;
+}
+ 
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node
+        = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+ 
+void printList(struct Node* head)
+{
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+}
+ 
+int main()
+{
+    /* Start with the empty list */
+    struct Node* head = NULL;
+ 
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 15);
+    push(&head, 85);
+ 
+    printf("Given linked list\n");
+    printList(head);
+    reverse(&head);
+    printf("\nReversed linked list \n");
+    printList(head);
+    getchar();
+}
